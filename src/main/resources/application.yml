@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /community
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community
+    username: root
+    password:
+#      mjztkkfulzwvdfag
+  mail:
+    host: smtp.qq.com
+    username: 2792299602@qq.com
+    password: mjztkkfulzwvdfag
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  data:
+    redis:
+      database: 0
+      host: 8.134.54.237
+      port: 6379
+      password: 123456
+
+

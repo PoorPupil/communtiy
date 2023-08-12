@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nowcoder.community.dao.mapper.DiscussPostMapper">
+
+<!-- discuss_post 表的 字段-->
+    <sql id="selectFields">
+        id, user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+    <!-- discuss_post 表的 插入 字段-->
+    <sql id="insertFields">
+        user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+
+<!--    分页查询-->
+    <select id="selectDiscussPosts" resultType="com.nowcoder.community.entity.DiscussPost">
+        select <include refid="selectFields"></include>
+        from discuss_post
+        where status != 2
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+        order by type desc, user_id desc
+        limit #{offset}, #{limit}
+    </select>
+
+<!--    查询记录总数-->
+    <select id="selectDiscussPostRows" resultType="int">
+        select count(id)
+        from discuss_post
+        where status != 2
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+    </select>
+
+    <insert id="insertDiscussPost" parameterType="com.nowcoder.community.entity.DiscussPost">
+        insert into discuss_post(<include refid="insertFields"></include>)
+        values(#{userId}, #{title}, #{content}, #{type}, #{status}, #{createTime}, #{commentCount}, #{score})
+    </insert>
+</mapper>
