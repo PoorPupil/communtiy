@@ -8,8 +8,6 @@ import com.nowcoder.community.utils.CommunityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
@@ -79,7 +77,7 @@ public class MybatisTest {
         // 头像,这里是使用 牛客网放在网上的资源
         user.setHeaderUrl(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         // 创建时间
-        user.setCreationTimestamp(new Date());
+        user.setCreateTime(new Date());
         userMapper.insertUser(user);
     }
     /**

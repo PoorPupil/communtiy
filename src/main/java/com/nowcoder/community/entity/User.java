@@ -29,6 +29,6 @@ public class User {
 //  `header_url` varchar(200) DEFAULT NULL,
     private String headerUrl;
 //  `create_time` timestamp NULL DEFAULT NULL,
-    private Date creationTimestamp;
+    private Date createTime;
 
 }

@@ -1,19 +1,14 @@
-package com.nowcoder.community.service;
+# 仿牛客网论坛
 
-import com.nowcoder.community.utils.RedisKeyUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SessionCallback;
-import org.springframework.stereotype.Service;
+## 2023.08.13、个人主页
 
-@Service
-public class LikeService {
+完成点击头像进入个人主页以及总点赞数的展示（这里还是使用redis实现，使用的方法是另外一个字段存储而非每次展示的时候查询）
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+需要重构点赞方法，每次点赞的时候顺便将该用户的总点赞数进行相应的改变，并且需要用 redis 的事务
 
+在LikeService中重构方法 like,为了速度，选择直接传入参数 entityUserId ,而非使用旧参数进行查询
+
+```java
     // 点赞
     public void like(int userId, int entityType, int entityId, int entityUserId) {
 //        // 获取 key
@@ -52,23 +47,10 @@ public class LikeService {
             }
         });
     }
+```
 
-    // 查询某实体点赞的数量
-    public long findEntityLikeCount(int entityType, int entityId) {
-        String entityLikeKey = RedisKeyUtil.getEntityLikeKey(entityType,entityId);
-        return redisTemplate.opsForSet().size(entityLikeKey);
-    }
+### 修改实体类属性名错误
 
-    // 查询某人对某实体的点赞状态
-    public int findEntityLikeStatus(int userId, int entityType, int entityId) {
-        String entityLikeKey = RedisKeyUtil.getEntityLikeKey(entityType, entityId);
-        return redisTemplate.opsForSet().isMember(entityLikeKey, userId) ? 1 : 0;
-    }
+另外发现实体类 User 的属性名 cteateTime 字段名错误，这里这里建议直接使用 "Shift + F6" 修改属性名即可，idea 会自动帮你修改其他关联的地方，避免错误的出现
 
-    // 查询某个用户获得的赞
-    public int findUserLikeCount(int userId) {
-        String userLikeKey = RedisKeyUtil.getUserLikeKey(userId);
-        Integer count = (Integer) redisTemplate.opsForValue().get(userLikeKey);
-        return count == null ? 0 : count.intValue();
-    }
-}
+个人主页的就比较简单了，需要注意的是我们为了防止恶意攻击，使用不存在的用户id访问，这里需要做出判断查询用户是否为空并返回异常。

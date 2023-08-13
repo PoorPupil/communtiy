@@ -1,6 +1,5 @@
 package com.nowcoder.community.service;
 
-import com.jhlabs.image.HSBAdjustFilter;
 import com.nowcoder.community.dao.mapper.LoginTicketMapper;
 import com.nowcoder.community.dao.mapper.UserMapper;
 import com.nowcoder.community.entity.LoginTicket;
@@ -88,7 +87,7 @@ public class UserService implements CommunityConstant {
         // 头像,这里是使用 牛客网放在网上的资源
         user.setHeaderUrl(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         // 创建时间
-        user.setCreationTimestamp(new Date());
+        user.setCreateTime(new Date());
 
         // 将 user 插入数据库中
         userMapper.insertUser(user);
