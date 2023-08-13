@@ -1,6 +1,6 @@
 function like(btn, entityType, entityId, entityUserId) {
     $.post(
-      "http://localhost:8080/community/like",
+      "/community/like",
         {"entityType":entityType,"entityId":entityId,"entityUserId":entityUserId},
         function(data) {
           data = $.parseJSON(data);

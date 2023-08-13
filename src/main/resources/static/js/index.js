@@ -9,7 +9,7 @@ function publish() {
 	var content = $("#message-text").val();
 	// 发送异步请求
 	$.post(
-		"http://localhost:8080/community/discuss/add",
+		"/community/discuss/add",
 		{"title":title,"content":content},
 		function (data) {
 			data = $.parseJSON(data);

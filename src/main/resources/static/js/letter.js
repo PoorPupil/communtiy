@@ -8,7 +8,7 @@ function send_letter() {
 	var toName = $("#recipient-name").val();
 	var content = $("#message-text").val();
 	$.post(
-		"http://localhost:8080/community/letter/send",
+		"/community/letter/send",
 		{
 			"toName":toName,"content":content
 		},
