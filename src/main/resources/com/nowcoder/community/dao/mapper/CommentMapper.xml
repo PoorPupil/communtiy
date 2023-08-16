@@ -34,4 +34,11 @@
         insert into comment(<include refid="insertFields"></include>)
         values(#{userId}, #{entityType}, #{entityId}, #{targetId}, #{content}, #{status}, #{createTime})
     </insert>
+
+<!--    根据 id 获取一个 comment 对象-->
+    <select id="selectCommentById" resultType="com.nowcoder.community.entity.Comment">
+        select <include refid="selectFields"></include>
+        from comment
+        where id = #{id}
+    </select>
 </mapper>
