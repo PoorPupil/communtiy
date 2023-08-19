@@ -27,4 +27,11 @@ spring:
       port: 6379
       password: 123456
 
+  elasticsearch:
+    uris: 8.134.54.237:9200
+#      cluster-name: nowcoder
+#      cluster-nodes: 8.134.54.237:9300
+
+
+
 

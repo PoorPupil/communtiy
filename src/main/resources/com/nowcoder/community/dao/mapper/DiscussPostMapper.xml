@@ -35,7 +35,7 @@
         </if>
     </select>
 
-    <insert id="insertDiscussPost" parameterType="com.nowcoder.community.entity.DiscussPost">
+    <insert id="insertDiscussPost" parameterType="com.nowcoder.community.entity.DiscussPost" useGeneratedKeys="true" keyProperty="id">
         insert into discuss_post(<include refid="insertFields"></include>)
         values(#{userId}, #{title}, #{content}, #{type}, #{status}, #{createTime}, #{commentCount}, #{score})
     </insert>
